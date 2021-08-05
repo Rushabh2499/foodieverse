@@ -143,8 +143,8 @@ export async function editMeal(user,id,meal)
     return await res.json();
 }
 
-export async function getSurpriseRecipe(user,allergenArr,randomIng){
-    const surprise = {email:user, allergens: allergenArr , ing:randomIng};
+export async function getSurpriseRecipe(randomIng){
+    const surprise = {ing:randomIng};
     //console.log(surprise)
     const res = await fetch(`/api/surprise-recipe`,
     { method: 'POST', 
@@ -158,11 +158,28 @@ export function getImageSearch(url){
     return fetch("/api/imageSearch/?url="+url).then(res => res.json());
 }
 
+export async function postImgbb(img){
+    console.log("in Imgbb API");
+    const obj ={base64:img}
+    try{
+        let response = await fetch("/api/imgbb", {
+            method: 'POST',
+            headers: {'Content-Type':'application/json', 'Accept': 'application/json'}, 
+            body: JSON.stringify(obj)
+        });
+        if(response.ok) {
+            return response.json();
+        }
+    }catch(error){
+        console.log(error)
+    }
+}
+
 export async function submitRecipe(username,email,recipe)
 {
     const obj ={username:username,email:email,recipe:recipe}
-    console.log('in add api')
-    console.log(obj);
+    //console.log('in add api')
+    //console.log(obj);
    const res = await fetch(`/api/tempRecipes/add`,
     { method: 'POST', 
     headers: {'Content-Type':'application/json',
@@ -191,7 +208,7 @@ export async function approveRecipe(recipe)
 export async function rejectRecipe(recipe,comment)
 {
     const obj ={recipe:recipe, comment:comment}
-    console.log(obj);
+    //console.log(obj);
    const res = await fetch(`/api/tempRecipes/reject`,
     { method: 'POST', 
     headers: {'Content-Type':'application/json',
@@ -203,7 +220,7 @@ export async function rejectRecipe(recipe,comment)
 export async function getMyRecipes(userid){
     const res = await fetch(`/api/users/${userid}/myRecipes`);
     const data = await res.json();
-    console.log(data);
+    //console.log(data);
     return data;
 }
 
@@ -215,20 +232,31 @@ export function getImgbb(url){
 export async function getPopularChips(){
     const res = await fetch(`/api/popularSearch`);
     const data = await res.json();
-    console.log(data);
+    //console.log(data);
     return data;
 }
 
 export async function getAllergens(email){
     const res = await fetch(`/api/users/${email}/allergens`);
     const data = await res.json();
-    console.log(data);
+    //console.log(data);
     return data;
 }
 
 export async function getIngredients(){
     const res = await fetch(`/api/ingredients`);
     const data = await res.json();
-    console.log(data);
+    //console.log(data);
     return data;
+}
+
+export async function setProfile(currentEmail,newEmail,allergenList){
+    const obj = {oldEmail: currentEmail, newEmail:newEmail, allergies: allergenList};
+    //console.log(obj)
+    const res = await fetch(`/api/users/:userid/edit`,
+    { method: 'POST', 
+    headers: {'Content-Type':'application/json',
+            'Accept': 'application/json'}, 
+    body: JSON.stringify(obj)});
+    return await res.json();
 }

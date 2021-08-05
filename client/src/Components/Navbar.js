@@ -15,6 +15,18 @@ class MobileMenu extends Component {
   state = { isOpen: false ,currentUser:null , logout:null, error:''}
   toggle = () => this.setState({ isOpen: !this.state.isOpen })
 
+  constructor(props){
+    super(props);
+    this.state = { 
+    isOpen: false,
+    currentUser : null,
+    logout: null,
+    error :''};
+
+   this.handleLogout = this.handleLogout.bind(this);
+     
+  }
+
   async handleLogout(){
     try{
     await this.state.logout()
@@ -48,9 +60,14 @@ class MobileMenu extends Component {
             <NavLink href="/Login" className="navL">Login</NavLink>
           </NavItem>
         :
+        <>
           <div>
             <NavItem className="nav-item-m"><NavLink className="navL">Hello, {this.state.currentUser.displayName}</NavLink></NavItem>
           </div>
+          <div>
+            <NavItem className="nav-item-m"><NavLink href="/dashboard" className="navL">Dashboard</NavLink></NavItem>
+          </div>
+          </>
         }
           <NavItem className="nav-item-m">
             <NavLink href="/" className="navL">Home</NavLink>
@@ -62,7 +79,7 @@ class MobileMenu extends Component {
             <NavLink href="/recipes" className="navL">Recipes</NavLink>
           </NavItem>
           <NavItem className="nav-item-m">
-            <NavLink className="navL">Dadi Ke Nuske</NavLink>
+            <NavLink href="/home-remedies" className="navL">Dadi Ke Nuske</NavLink>
           </NavItem>
           {/* <NavItem className="nav-item-m">
             <NavLink href="/foodium" className="navL">Foodium</NavLink>
@@ -77,7 +94,7 @@ class MobileMenu extends Component {
                 <DropdownItem href="/shopping-list">Shopping List</DropdownItem>
                 <DropdownItem href='/favorites'>Favorites</DropdownItem>
                 <DropdownItem href="/surprise-recipe">Surprise</DropdownItem>
-                <DropdownItem href="/settings">Settings</DropdownItem>
+                <DropdownItem href="/image-search">Ingredient Recognition</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </NavItem>
@@ -276,7 +293,7 @@ class MobileMenu extends Component {
 
 
   static getDerivedStateFromProps(props,state) {
-    console.log(props)
+    //console.log(props)
     return {
       currentUser:props.currentUser,
       logout:props.logout,
@@ -300,6 +317,7 @@ class MobileMenu extends Component {
         <Container>
           <MobileMenu 
           currentUser={this.state.currentUser}
+          logout={this.state.logout}
           hideNav={this.hideNav} />
 
           <Nav className="nav-n">
@@ -348,6 +366,9 @@ class MobileMenu extends Component {
                   <NavItem className="nav-item-n">
                     <NavLink href="/surprise-recipe">Surprise</NavLink>
                   </NavItem>
+                  <NavItem className="nav-item-n">
+                    <NavLink href="/image-search">Ingredient Recognition</NavLink>
+                  </NavItem>
                 </Nav>
               </div>
             </div>
@@ -375,9 +396,9 @@ class MobileMenu extends Component {
                     <NavItem className="nav-item-n">
                       <NavLink href="/dashboard">Dashboard</NavLink>
                     </NavItem>
-                    <NavItem className="nav-item-n">
+                    {/* <NavItem className="nav-item-n">
                       <NavLink href="/settings">Settings</NavLink>
-                    </NavItem>
+                    </NavItem> */}
                     <NavItem className="nav-item-n">
                       <NavLink href="/login" onClick={this.handleLogout}>Log out</NavLink>
                     </NavItem>

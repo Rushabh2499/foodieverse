@@ -30,6 +30,22 @@ const names = [
   'Onion',
   'Cheese',
   'Milk',
+  'Mushroom',
+  'Salt',
+  'Sugar',
+  'Chikpeas',
+  'Water',
+  'Rice',
+  'Flour',
+  'Peanut',
+  'Cashew',
+  'Fig',
+  'Butter',
+  'Mustard',
+  'Coriander',
+  'Cloves',
+  'Orange',
+  'Banana',
   'Apple',
   'Peas',
   'Rice',
@@ -43,6 +59,22 @@ const ings = [
   'Onion',
   'Cheese',
   'Milk',
+  'Mushroom',
+  'Salt',
+  'Sugar',
+  'Chikpeas',
+  'Water',
+  'Rice',
+  'Flour',
+  'Peanut',
+  'Cashew',
+  'Fig',
+  'Butter',
+  'Mustard',
+  'Coriander',
+  'Cloves',
+  'Orange',
+  'Banana',
   'Apple',
   'Peas',
   'Rice',
@@ -216,8 +248,8 @@ export default function SurpriseRecipes() {
       {
         alert('Please click on shuffler to choose your 3 musketeers!')
       }
-    const res = await getSurpriseRecipe(currentUser.email,allergens,randomIng.join('+.*'));
-    console.log(res)
+    const res = await getSurpriseRecipe(randomIng.join('+.*'));
+    //console.log(res)
     if(JSON.stringify(res) === '{}')
       setError("Whoops! Looks like we don't have any recipes with that ingredient combination. Try again!")
     
@@ -258,7 +290,7 @@ export default function SurpriseRecipes() {
     if(recipe)
     {const data = await getMealRecipe(recipe._id);
     setRecipe(data);
-      console.log(data)
+      //console.log(data)
   }
   }
 
@@ -266,7 +298,7 @@ export default function SurpriseRecipes() {
   },[rerender])
 
   useEffect(() =>{
-    console.log(allergens)
+    //console.log(allergens)
     if(allergens.includes(randomIng))
       setRandomIng('');
   },[allergens])
@@ -274,7 +306,7 @@ export default function SurpriseRecipes() {
   const handleChange = (event) => {
     let tmp = allergens;
     tmp.push(event.target.value);
-    console.log(tmp)
+    //console.log(tmp)
     alert(event.target.value)
     setAllergens(tmp);
   };

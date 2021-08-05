@@ -30,7 +30,7 @@ export default function Recipes () {
 
     const getUserAllergens = async() =>{
       const data = await getAllergens(currentUser.email)
-      console.log(data)
+     // console.log(data)
      setAllergenName(data)
     }
     
@@ -41,7 +41,7 @@ export default function Recipes () {
 
     const fetchRecipes=async()=>{
         try{
-          console.log('in fetch rec')
+          //console.log('in fetch rec')
           const search = location.state ? location.state.search : '' ;
          const rec = await getRecipes(search,rangeArr,slider,mode,allergenName);
          setRecipes(rec);
@@ -51,7 +51,7 @@ export default function Recipes () {
       }
 
       useEffect(() => {
-        console.log('fetching again')
+        //console.log('fetching again')
         if(location.state !== undefined)
           setMode(location.state.mode)
           fetchRecipes();
@@ -65,7 +65,7 @@ export default function Recipes () {
               </Col>
               </Row>
             <Row>
-              <Col xs={4} md={3} className="border-right mh-100 border-dark"><RecipeFilter
+              <Col xs={12} sm={2} md={2} className="border-right mh-100 border-dark"><RecipeFilter
               setRanges={setRanges}
               ranges={ranges}
               slider={slider}
@@ -75,7 +75,7 @@ export default function Recipes () {
               setAllergenName={setAllergenName}
             /> 
             </Col>
-            <Col xs={8} md={9}>
+            <Col xs={12} sm={10} md={10}>
             <div className="wrapper">
                     {
                     recipes.map(r =>
